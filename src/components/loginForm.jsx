@@ -14,14 +14,12 @@ class LoginForm extends Form {
     username: Joi.string().required().label("Username"),
     password: Joi.string().required().label("Password"),
   };
-  // componentDidMount() {
-  //   const jwt_token = localStorage.getItem("token");
-  //   if (jwt_token) this.props.history.push("/");
-  // }
+
   doSubmit = async () => {
     try {
       await login(this.state.data);
-      window.location = "/";
+      const newLocation = this.props.location.state || "/";
+      window.location = newLocation;
     } catch (ex) {
       toast.error(ex.response.data);
     }

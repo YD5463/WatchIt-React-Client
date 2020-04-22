@@ -11,7 +11,6 @@ import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
 import Logout from "./components/logout";
 import { getLoggedUser } from "./services/authService";
-import ProtectedRoute from "./components/common/protctedRoute";
 import "./App.css";
 
 class App extends Component {
@@ -22,19 +21,33 @@ class App extends Component {
     } catch (ex) {}
   }
   render() {
+    const { user } = this.state;
     return (
       <React.Fragment>
-        <NavBar user={this.state.user} />
+        <NavBar user={user} />
         <main className="container">
           <ToastContainer />
           <Switch>
             <Route path="/logout" component={Logout} />
             <Route path="/register" component={RegisterForm} />
             <Route path="/login" component={LoginForm} />
-            <ProtectedRoute path="/movies/:id" component={MovieForm} />
+            <Route
+              path="/movies/:id"
+              render={(props) => {
+                if (user) return <MovieForm {...props} />;
+                return (
+                  <Redirect
+                    to={{
+                      pathname: "/login",
+                      state: props.location,
+                    }}
+                  ></Redirect>
+                );
+              }}
+            ></Route>
             <Route
               path="/movies"
-              render={(props) => <Movies {...props} user={this.state.user} />}
+              render={(props) => <Movies {...props} user={user} />}
             />
             <Route path="/customers" component={Customers} />
             <Route path="/rentals" component={Rentals} />
