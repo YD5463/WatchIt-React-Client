@@ -9,7 +9,7 @@
     "font-awesome": "^4.7.0",
     "joi-browser": "^13.4.0",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.10",
+    "lodash": ">=4.17.12",
     "prop-types": "^15.6.2",
     "raven-js": "^3.27.2",
     "react": "^16.4.1",
