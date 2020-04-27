@@ -16,7 +16,7 @@ class Customer extends Component {
     sortColumn: { path: "name", order: "asc" },
   };
   async componentDidMount() {
-    const customers = await getCustomers();
+    const { data: customers } = await getCustomers();
     this.setState({ customers });
   }
 
@@ -37,6 +37,7 @@ class Customer extends Component {
   };
   render() {
     const customers = this.getPagedData();
+    if (customers.length === 0) return <p>there is no customers</p>;
     return (
       <React.Fragment>
         <SearchBox

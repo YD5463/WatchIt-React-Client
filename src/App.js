@@ -13,6 +13,7 @@ import RentalForm from "./components/rentalForm";
 import Logout from "./components/logout";
 import { getLoggedUser } from "./services/authService";
 import "./App.css";
+import MyProfile from "./components/myProfile";
 
 class App extends Component {
   state = {};
@@ -51,6 +52,7 @@ class App extends Component {
               path="/movies"
               render={(props) => <Movies {...props} user={user} />}
             />
+            <Route path="/profile" component={MyProfile} />
             <Route path="/rentals/new" component={RentalForm} />
             <Route path="/customers" component={Customers} />
             <Route path="/rentals" component={Rentals} />

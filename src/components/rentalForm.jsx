@@ -30,8 +30,8 @@ class RentalForm extends Form {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        {this.renderSelect("title", "Movies", this.state.movies)}
-        {this.renderSelect("name", "Customers", this.state.customers)}
+        {this.renderSelect("movieId", "Movies", this.state.movies)}
+        {this.renderSelect("customerId", "Customers", this.state.customers)}
         {this.renderButton("Add")}
       </form>
     );

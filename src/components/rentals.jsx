@@ -42,9 +42,6 @@ class Rentals extends Component {
     const customers = this.getPagedData();
     return (
       <React.Fragment>
-        <Link to="/rentals/new" className="btn btn-primary btn-circle">
-          <i className="fa fa-plus"></i>
-        </Link>
         <SearchBox
           value={this.searchQuery}
           onChange={this.handleSearch}
@@ -55,6 +52,12 @@ class Rentals extends Component {
           sortColumn={this.state.sortColumn}
           onSort={this.handleSort}
         />
+        <Link
+          to="/rentals/new"
+          className="btn btn-primary btn-circle add-btn m-5"
+        >
+          <i className="fa fa-plus fa-lg"></i>
+        </Link>
       </React.Fragment>
     );
   }
