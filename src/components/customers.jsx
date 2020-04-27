@@ -1,7 +1,57 @@
-import React from "react";
+import React, { Component } from "react";
+import SearchBox from "./searchBox";
+import { getCustomers } from "../services/customersService";
+import Table from "./common/table";
+import _ from "lodash";
 
-const Customers = () => {
-  return <h1>Customers</h1>;
-};
+class Customer extends Component {
+  columns = [
+    { path: "name", label: "Name" },
+    { path: "phone", label: "Cell Phone" },
+    { path: "isGold", label: "Is Gold" },
+  ];
+  state = {
+    customers: [],
+    searchQuery: "",
+    sortColumn: { path: "name", order: "asc" },
+  };
+  async componentDidMount() {
+    const customers = await getCustomers();
+    this.setState({ customers });
+  }
 
-export default Customers;
+  handleSearch = (query) => {
+    this.setState({ searchQuery: query });
+  };
+  handleSort = (sortColumn) => {
+    this.setState({ sortColumn });
+  };
+  getPagedData = () => {
+    const { customers, searchQuery, sortColumn } = this.state;
+    if (searchQuery) {
+      return customers.fillter((c) =>
+        c.name.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
+    }
+    return _.orderBy(customers, [sortColumn.path], [sortColumn.order]);
+  };
+  render() {
+    const customers = this.getPagedData();
+    return (
+      <React.Fragment>
+        <SearchBox
+          value={this.searchQuery}
+          onChange={this.handleSearch}
+        ></SearchBox>
+        <Table
+          columns={this.columns}
+          data={customers}
+          sortColumn={this.state.sortColumn}
+          onSort={this.handleSort}
+        />
+      </React.Fragment>
+    );
+  }
+}
+
+export default Customer;
