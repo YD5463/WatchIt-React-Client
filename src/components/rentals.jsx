@@ -3,6 +3,7 @@ import SearchBox from "./searchBox";
 import { getCustomers } from "../services/customersService";
 import Table from "./common/table";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 
 class Rentals extends Component {
   columns = [
@@ -40,8 +41,10 @@ class Rentals extends Component {
   render() {
     const customers = this.getPagedData();
     return (
-      
       <React.Fragment>
+        <Link to="/rentals/new" className="btn btn-primary btn-circle">
+          <i className="fa fa-plus"></i>
+        </Link>
         <SearchBox
           value={this.searchQuery}
           onChange={this.handleSearch}

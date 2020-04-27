@@ -9,12 +9,24 @@ import NotFound from "./components/notFound";
 import NavBar from "./components/navBar";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
+import RentalForm from "./components/rentalForm";
 import Logout from "./components/logout";
 import { getLoggedUser } from "./services/authService";
 import "./App.css";
 
 class App extends Component {
   state = {};
+  checkUserAccess = (props) => {
+    if (this.state.user) return <MovieForm {...props} />;
+    return (
+      <Redirect
+        to={{
+          pathname: "/login",
+          state: props.location,
+        }}
+      ></Redirect>
+    );
+  };
   componentDidMount() {
     try {
       this.setState({ user: getLoggedUser() });
@@ -33,22 +45,13 @@ class App extends Component {
             <Route path="/login" component={LoginForm} />
             <Route
               path="/movies/:id"
-              render={(props) => {
-                if (user) return <MovieForm {...props} />;
-                return (
-                  <Redirect
-                    to={{
-                      pathname: "/login",
-                      state: props.location,
-                    }}
-                  ></Redirect>
-                );
-              }}
+              render={(props) => this.checkUserAccess(props)}
             ></Route>
             <Route
               path="/movies"
               render={(props) => <Movies {...props} user={user} />}
             />
+            <Route path="/rentals/new" component={RentalForm} />
             <Route path="/customers" component={Customers} />
             <Route path="/rentals" component={Rentals} />
             <Route path="/not-found" component={NotFound} />

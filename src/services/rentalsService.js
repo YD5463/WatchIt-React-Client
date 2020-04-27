@@ -5,9 +5,7 @@ const EndPoint = apiUrl + "/rentals";
 export function getRetntals() {
   return http.get(EndPoint);
 }
-export function addRental(rantal){
-
+export function addRental(rental) {
+  return http.post(EndPoint, rental);
 }
-export function returnRental({movieId,CustomerId}){
-
-}
+export function returnRental({ movieId, CustomerId }) {}
