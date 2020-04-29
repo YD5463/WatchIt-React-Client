@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 //   dsn:
 //     "https://b82f552a1e784a0c9aad1cff56550c39@o380758.ingest.sentry.io/5207060",
 // });
-console.log(process.env);
+
 ReactDOM.render(
   <BrowserRouter>
     <App />

@@ -55,7 +55,21 @@ class Form extends Component {
       </button>
     );
   }
-
+  renderCheckBox(isChecked, label, name) {
+    return (
+      <div className="custom-control custom-checkbox">
+        <label className="custom-control-label" htmlFor="customCheck">
+          {label}
+        </label>
+        <input
+          type="checkbox"
+          className="custom-control-input"
+          id="customCheck"
+          name={name}
+        ></input>
+      </div>
+    );
+  }
   renderSelect(name, label, options) {
     const { data, errors } = this.state;
 

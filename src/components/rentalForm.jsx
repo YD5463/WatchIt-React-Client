@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "./common/form";
 import Joi from "joi-browser";
-//import { addRental } from "../services/rentalsService";
+import { addRental } from "../services/rentalsService";
 import { getMovies } from "../services/movieService";
 import { getCustomers } from "./../services/customersService";
 
@@ -20,7 +20,10 @@ class RentalForm extends Form {
     movieId: Joi.string().required(),
     customerId: Joi.string().required(),
   };
-
+  doSubmit = async () => {
+    const response = await addRental(this.state.data);
+    this.props.history.push("/rentals");
+  };
   async componentDidMount() {
     const { data: movies } = await getMovies();
     const { data: customers } = await getCustomers();

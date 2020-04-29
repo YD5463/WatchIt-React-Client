@@ -1,3 +1,4 @@
+import "./App.css";
 import React, { Component } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -12,8 +13,8 @@ import RegisterForm from "./components/registerForm";
 import RentalForm from "./components/rentalForm";
 import Logout from "./components/logout";
 import { getLoggedUser } from "./services/authService";
-import "./App.css";
 import MyProfile from "./components/myProfile";
+import CustomerForm from "./components/customerForm";
 
 class App extends Component {
   state = {};
@@ -52,6 +53,7 @@ class App extends Component {
               path="/movies"
               render={(props) => <Movies {...props} user={user} />}
             />
+            <Route path="/customers/new" component={CustomerForm} />
             <Route path="/profile" component={MyProfile} />
             <Route path="/rentals/new" component={RentalForm} />
             <Route path="/customers" component={Customers} />

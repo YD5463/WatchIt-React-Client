@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import SearchBox from "./searchBox";
-import { getCustomers } from "../services/customersService";
+import { getRetntals, returnRental } from "../services/rentalsService";
 import Table from "./common/table";
 import _ from "lodash";
 import { Link } from "react-router-dom";
+//import { getLoggedUser } from "../services/authService";
 
 class Rentals extends Component {
   columns = [
@@ -11,18 +12,31 @@ class Rentals extends Component {
     { path: "customer.name", label: "Customer name" },
     { path: "dateOut", label: "From" },
     { path: "dateReturned", label: "To" },
-    { path: "rentalFee", label: "Price" },
+    {
+      key: "return",
+      content: (rental) => (
+        <button
+          className="btn btn-success btn-sm"
+          onClick={() => this.handleReturn(rental)}
+        >
+          Return
+        </button>
+      ),
+    },
   ];
+
   state = {
     rentals: [],
     searchQuery: "",
     sortColumn: { path: "dateOut", order: "desc" },
   };
-  async componentDidMount() {
-    const customers = await getCustomers();
-    this.setState({ customers });
-  }
-
+  handleReturn = async (rental) => {
+    const response = await returnRental({
+      customerId: rental.customer._id,
+      movieId: rental.movie._id,
+    });
+    window.location = "/rentals";
+  };
   handleSearch = (query) => {
     this.setState({ searchQuery: query });
   };
@@ -30,16 +44,28 @@ class Rentals extends Component {
     this.setState({ sortColumn });
   };
   getPagedData = () => {
-    const { rentals: customers, searchQuery, sortColumn } = this.state;
+    const { rentals, searchQuery, sortColumn } = this.state;
+    let filteredRentals = rentals;
+    console.log("im here");
+    console.log(filteredRentals);
     if (searchQuery) {
-      return customers.fillter((rental) =>
+      filteredRentals = filteredRentals.filter((rental) =>
         rental.movie.title.toLowerCase().startsWith(searchQuery.toLowerCase())
       );
     }
-    return _.orderBy(customers, [sortColumn.path], [sortColumn.order]);
+    filteredRentals = _.orderBy(
+      filteredRentals,
+      [sortColumn.path],
+      [sortColumn.order]
+    );
+    return filteredRentals;
   };
+  async componentDidMount() {
+    const { data: rentals } = await getRetntals();
+    this.setState({ rentals });
+  }
   render() {
-    const customers = this.getPagedData();
+    const rentals = this.getPagedData();
     return (
       <React.Fragment>
         <SearchBox
@@ -48,7 +74,7 @@ class Rentals extends Component {
         ></SearchBox>
         <Table
           columns={this.columns}
-          data={customers}
+          data={rentals}
           sortColumn={this.state.sortColumn}
           onSort={this.handleSort}
         />

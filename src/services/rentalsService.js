@@ -8,4 +8,8 @@ export function getRetntals() {
 export function addRental(rental) {
   return http.post(EndPoint, rental);
 }
-export function returnRental({ movieId, CustomerId }) {}
+export function returnRental(data) {
+  console.log(data);
+  console.log(apiUrl + "/returns");
+  return http.post(apiUrl + "/returns", data);
+}

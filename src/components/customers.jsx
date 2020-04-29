@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import SearchBox from "./searchBox";
 import { getCustomers } from "../services/customersService";
 import Table from "./common/table";
@@ -37,7 +38,6 @@ class Customer extends Component {
   };
   render() {
     const customers = this.getPagedData();
-    if (customers.length === 0) return <p>there is no customers</p>;
     return (
       <React.Fragment>
         <SearchBox
@@ -50,6 +50,12 @@ class Customer extends Component {
           sortColumn={this.state.sortColumn}
           onSort={this.handleSort}
         />
+        <Link
+          to="/customers/new"
+          className="btn btn-primary btn-circle add-btn m-5"
+        >
+          <i className="fa fa-plus fa-lg"></i>
+        </Link>
       </React.Fragment>
     );
   }
