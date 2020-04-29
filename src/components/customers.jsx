@@ -18,6 +18,9 @@ class Customer extends Component {
   };
   async componentDidMount() {
     const { data: customers } = await getCustomers();
+    for (let i = 0; i < customers.length; i++) {
+      customers[i]["isGold"] = customers[i]["isGold"] ? "Yes" : "No";
+    }
     this.setState({ customers });
   }
 
@@ -29,12 +32,13 @@ class Customer extends Component {
   };
   getPagedData = () => {
     const { customers, searchQuery, sortColumn } = this.state;
+    let filterdCustomers = customers;
     if (searchQuery) {
-      return customers.fillter((c) =>
+      filterdCustomers = filterdCustomers.filter((c) =>
         c.name.toLowerCase().startsWith(searchQuery.toLowerCase())
       );
     }
-    return _.orderBy(customers, [sortColumn.path], [sortColumn.order]);
+    return _.orderBy(filterdCustomers, [sortColumn.path], [sortColumn.order]);
   };
   render() {
     const customers = this.getPagedData();

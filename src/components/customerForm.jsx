@@ -27,7 +27,7 @@ class CustomerForm extends Form {
         <h1>Add Customer</h1>
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("name", "Name")}
-          {this.renderCheckBox(this.state.data.isGold, "Is Gold?", "isGold")}
+          {this.renderCheckBox("isGold","Is Gold?")}
           {this.renderInput("phone", "Cell Phone")}
           {this.renderButton("Save")}
         </form>

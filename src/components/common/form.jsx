@@ -55,18 +55,23 @@ class Form extends Component {
       </button>
     );
   }
-  renderCheckBox(isChecked, label, name) {
+  renderCheckBox(name, label) {
     return (
-      <div className="custom-control custom-checkbox">
-        <label className="custom-control-label" htmlFor="customCheck">
+      <div className="checkbox">
+        <label>
+          <input
+            type="checkbox"
+            value={label}
+            checked={this.state.data[name]}
+            onChange={() => {
+              const data = { ...this.state.data };
+              data[name] = !data[name];
+              this.setState({ data });
+            }}
+          />
+
           {label}
         </label>
-        <input
-          type="checkbox"
-          className="custom-control-input"
-          id="customCheck"
-          name={name}
-        ></input>
       </div>
     );
   }
