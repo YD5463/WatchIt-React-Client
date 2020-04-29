@@ -58,7 +58,7 @@ class Customer extends Component {
           to="/customers/new"
           className="btn btn-primary btn-circle add-btn m-5"
         >
-          <i className="fa fa-plus fa-lg"></i>
+          <i className="fa fa-plus fa-lg center"></i>
         </Link>
       </React.Fragment>
     );

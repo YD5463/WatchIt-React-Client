@@ -26,3 +26,9 @@ body {
   bottom: 0;
   right: 0;
 }
+
+.center {
+  margin: 10px 5px 10px 5px !important;
+  height: 1rem;
+  font-size: 3em !important;
+}
