@@ -3,6 +3,7 @@ import Joi from "joi-browser";
 import Form from "./common/form";
 import { login } from "./../services/authService";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 class LoginForm extends Form {
   state = {
@@ -33,6 +34,9 @@ class LoginForm extends Form {
           {this.renderInput("username", "Username")}
           {this.renderInput("password", "Password", "password")}
           {this.renderButton("Login")}
+          <Link to="/forgotPassword" style={{ float: "right" }}>
+            forgot password?
+          </Link>
         </form>
       </div>
     );

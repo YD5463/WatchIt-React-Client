@@ -21,7 +21,7 @@ class RentalForm extends Form {
     customerId: Joi.string().required(),
   };
   doSubmit = async () => {
-    const response = await addRental(this.state.data);
+    await addRental(this.state.data);
     this.props.history.push("/rentals");
   };
   async componentDidMount() {

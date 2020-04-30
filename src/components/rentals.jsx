@@ -31,7 +31,7 @@ class Rentals extends Component {
     sortColumn: { path: "dateOut", order: "desc" },
   };
   handleReturn = async (rental) => {
-    const response = await returnRental({
+    await returnRental({
       customerId: rental.customer._id,
       movieId: rental.movie._id,
     });

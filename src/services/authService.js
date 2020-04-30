@@ -19,7 +19,12 @@ export function loginWithJwt(jwt) {
 export function logout() {
   localStorage.removeItem("token");
 }
-
+export function forgotPassword(email) {
+  http.post(`${EndPoint}/sendEmail`, { email });
+}
+export function resetPassword(token, password) {
+  http.post(`${EndPoint}/resetPassword`, { token, password });
+}
 export function getLoggedUser() {
   try {
     const token = localStorage.getItem("token");

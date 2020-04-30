@@ -15,6 +15,8 @@ import Logout from "./components/logout";
 import { getLoggedUser } from "./services/authService";
 import MyProfile from "./components/myProfile";
 import CustomerForm from "./components/customerForm";
+import ForgotPasswordForm from "./components/forgotPasswordForm";
+import ResetPasswordForm from "./components/resetPassword";
 
 class App extends Component {
   state = {};
@@ -43,8 +45,10 @@ class App extends Component {
           <ToastContainer />
           <Switch>
             <Route path="/logout" component={Logout} />
+            <Route path="/login/:token" component={ResetPasswordForm}></Route>
             <Route path="/register" component={RegisterForm} />
             <Route path="/login" component={LoginForm} />
+            <Route path="/forgotPassword" component={ForgotPasswordForm} />
             <Route
               path="/movies/:id"
               render={(props) => this.checkUserAccess(props)}
